@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 //contains all methods that can be invoked by the client
 //all methods must throw RemoteException
 
-public interface RemInterface extends Remote{
+public interface KeyInterface extends Remote {
 	
 	public void calculateServKey() throws RemoteException;
 	

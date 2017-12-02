@@ -5,15 +5,16 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class Server extends CommImplementation{
 	
-	private BigInteger p;
-	private BigInteger g;
-	private BigInteger a;
+	private static BigInteger p = new BigInteger("191");
+	private static BigInteger g = new BigInteger("131");
 
 	public static void main(String[] args) {
 		
 		try {
-			CommImplementation server = new CommImplementation();
-			RemInterface stub = (RemInterface) UnicastRemoteObject.exportObject(server, 0);
+			//KeyImpl server = new KeyImpl(p,g);
+			//KeyImpl server = new KeyImpl(new BigInteger("191"),new BigInteger("131"));
+			KeyImpl server = new KeyImpl();
+			KeyInterface stub = (KeyInterface) UnicastRemoteObject.exportObject(server, 0);
 			Registry registry = LocateRegistry.getRegistry();
 			
 			registry.rebind("Key", server);

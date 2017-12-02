@@ -3,7 +3,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Random;
 
-public class Client {
+public class MyClient {
 	
 	public static void main(String[] args) {
 		
@@ -24,9 +24,8 @@ public class Client {
 		
 		try {
 			Registry registry = LocateRegistry.getRegistry(host);
-			RemInterface stub = (RemInterface) registry.lookup("Key");
+			KeyInterface stub = (KeyInterface) registry.lookup("Key");
 			
-			System.out.println("Hello I'm the client");
 			stub.calculateServKey();
 			
 			p = stub.receiveP();
