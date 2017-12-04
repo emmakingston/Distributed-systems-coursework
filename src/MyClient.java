@@ -1,6 +1,7 @@
 import java.math.BigInteger;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Random;
 
 public class MyClient {
@@ -8,41 +9,29 @@ public class MyClient {
 	public static void main(String[] args) {
 		
 		String host;
-		BigInteger y;
-		BigInteger b;	
-		BigInteger p;
-		BigInteger g;
-		BigInteger x;
-		BigInteger key;
+		String user;
 		
-		if(args.length>0) {
-			host = args[0];
-		} else {
+		if(args.length <1) {
 			System.err.println("No host specified");
 			return;
 		}
 		
+		host = args[0];
+		
 		try {
+			
+			System.setProperty("java.securitypolicy", "mypolicy");
+			if(System.getSecurityManager()==null) {
+				System.setSecurityManager(new SecurityManager());
+			}
+			
+			ClientImpl client = new ClientImpl();
+			ClientInterface clientStub = (ClientInterface) UnicastRemoteObject.exportObject(client, 0);
+			
 			Registry registry = LocateRegistry.getRegistry(host);
-			KeyInterface stub = (KeyInterface) registry.lookup("Key");
+			ServInterface server = (ServInterface) registry.lookup("Server");
 			
-			stub.calculateServKey();
-			
-			p = stub.receiveP();
-			x = stub.receiveX();
-			g = stub.receiveG();
-			
-			//generate psuedo random b
-			Random rand = new Random();
-			b = new BigInteger(5,rand);
-			
-			y = g.modPow(b, p);
-			
-			stub.sendY(y);
-			
-			key = x.modPow(b, p);
-			System.out.println("Shared key: " + key);
-			
+			server.getConnectionRequest(clientStub);
 			
 		} catch (Exception e) {
 			System.err.println("Client error: " + e.getMessage());
