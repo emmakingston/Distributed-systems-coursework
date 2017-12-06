@@ -11,4 +11,10 @@ public interface ClientInterface extends Remote {
 	/*returns the calculated value of y to the server */
 	public BigInteger getClientY() 
 			throws RemoteException;
+	
+	public String getUsername()
+			throws RemoteException;
+	
+	public void sendAndDecrypt(String encryptedTxt)
+			throws RemoteException;
 }
