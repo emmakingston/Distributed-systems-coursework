@@ -49,7 +49,16 @@ public class ClientImpl implements ClientInterface {
 		}
 		
 		System.out.println(encryptedTxt);
+		
+		
+		
+		closeClient();
 	}
+	
+	public void closeClient() throws RemoteException{
+		System.exit(0);
+	}
+	
 	
 	public String reverseSubst(String encrypted) {
 		String msg = encrypted;

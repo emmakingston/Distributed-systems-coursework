@@ -17,4 +17,8 @@ public interface ClientInterface extends Remote {
 	
 	public void sendAndDecrypt(String encryptedTxt)
 			throws RemoteException;
+	
+	public void closeClient() 
+			throws RemoteException;
+	
 }

@@ -14,15 +14,16 @@ public class MyServer{
 		
 		try {
 			
+			//sets the security policy if one isnt already specified
 			System.setProperty("java.security.policy", "mypolicy");
 			if(System.getSecurityManager()==null) {
 				System.setSecurityManager(new SecurityManager());
 			}
 			
+			//creates a new remote server object, instantiates it with server p and g values and 
 			ServImpl server = new ServImpl(p,g);
 			ServInterface stub = (ServInterface) UnicastRemoteObject.exportObject(server, 0);
-			Registry registry = LocateRegistry.getRegistry();
-			
+			Registry registry = LocateRegistry.getRegistry();			
 			registry.rebind("Server", stub);
 
 			//dealing with other server
