@@ -12,13 +12,12 @@ public interface ClientInterface extends Remote {
 	public BigInteger getClientY() 
 			throws RemoteException;
 	
+	/*returns the userID */
 	public String getUsername()
 			throws RemoteException;
 	
+	/*gets the encrypted message, decrypts and outputs result */
 	public void sendAndDecrypt(String encryptedTxt)
-			throws RemoteException;
-	
-	public void closeClient() 
 			throws RemoteException;
 	
 }
